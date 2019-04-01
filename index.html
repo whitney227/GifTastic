@@ -103,6 +103,7 @@
             image.attr('data-still', still);
             image.attr('data-animated', animated);
             image.attr('data-state', 'still');
+            image.addClass('searchImage');
 
             //Append the paragraph tag and image tag to the created div
             gifDiv.append(p);
@@ -114,6 +115,17 @@
           }
       })
     })
+    //create a function for animating the gifs by clicking on the image
+    $(document).on('click', '.searchImage', function(){
+      var state = $(this).attr('data-state');
+      if(state=='still'){
+        $(this).attr('src', $(this).data('animated'));
+        $(this).attr('data-state', 'animated');
+      }else {
+        $(this).attr('src', $(this).data('still'));
+        $(this).attr('data-state', 'still');
+        }
+    });
     
     //create a function for the search form
     $("#addSearch").on('click', function(){
