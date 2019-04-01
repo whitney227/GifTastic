@@ -47,7 +47,7 @@
       console.log(topicArray);
 
     //Function for creating buttons in the HTML
-    function renderButtons (newSearch) {
+    function renderButtons () {
       $("#buttons-view").empty()
   
       // Looping through the array of holidays
@@ -57,9 +57,9 @@
         var holiday= $("<button>");
         // Adding a class
         holiday.addClass("buttonClass");
-        // Adding a data-attribute with a value of the movie at index i
+        // Adding a data-attribute with a value of the holiday at index i
         holiday.attr('data-type', topicArray[i]);
-        // Providing the button's text with a value of the movie at index i
+        // Providing the button's text with a value of the holiday at index i
         holiday.text(topicArray[i]);
         // Adding the button to the HTML
       $("#buttons-view").append(holiday);
@@ -140,8 +140,7 @@
       topicArray.push(newSearch)
 
       //call the renderButtons function once more
-      renderButtons();
-      //prevent the page from reloading
+      renderButtons(newSearch)
       return false;
     })
     </script>
