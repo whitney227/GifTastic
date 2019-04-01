@@ -1,0 +1,10 @@
+.container{
+    font-family: 'Orbitron', sans-serif;
+    margin-top: 3%;
+}
+.buttonClass{
+    background-color : white;
+    color: black;
+    border: 3px solid violet;
+    margin: 1%;
+};
