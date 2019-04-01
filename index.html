@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Holiday GIFS</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Holiday Antics</h1>
+
+    <!-- Rendered Buttons will get Dumped Here  -->
+    <div id="buttons-view"></div>
+
+    <br>
+
+    <!-- This form allows users to input their own holiday-->
+    <form id= "search-form">
+
+      <!--Label for text box-->
+      <label>Add you favorite holiday</label>
+      <!--Text input box-->
+      <input type="text" id="search-input">
+      <!--Submit Button-->
+      <input id="addSearch" type="submit" value="Click">
+
+    </form>
+
+    <!-- GIFS get dumped here-->
+    <div id="holiday-images"></div>
+
+    <!--Script Tag -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
+    <script type="text/javascript">
+
+    //Initial array of holidays
+    var topicArray = ["Christmas", "Thanksgiving", "Easter", "New Year's Eve", "Fourth of July", "St. Patrick's Day", "Halloween", "Valentine's Day"];
+      console.log(topicArray);
+
+    //Function for creating buttons in the HTML
+    function renderButtons () {
+      $("#button-view").empty()
+  
+      // Looping through the array of holidays
+      for(var i=0; i<topicArray.length; i++) {
+
+        // Dynamicaly generating buttons for each holiday in the array
+        var holiday= $("<button>");
+        // Adding a class
+        holiday.addClass("buttonClass");
+        // Adding a data-attribute with a value of the movie at index i
+        holiday.attr('data-type', topicArray[i]);
+        // Providing the button's text with a value of the movie at index i
+        holiday.text(topicArray[i]);
+        // Adding the button to the HTML
+      $("#buttons-view").append(holiday);
+        }
+      }
+      renderButtons()
+
+      //Event listener for all the button elements
+        $("button").on("click", function(){
+
+        //image refers to the button's value that was clicked
+        var type = $(this).attr('data-type');
+
+        // Constructing a queryURL using the image name
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q="+type+"&api_key=ZRHkrDBtfCxY4z71tSO8GExnQNik26gc&limit=10&rating=pg";
+
+        //Runs the AJAX request with the queryURL
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).done(function(response){
+          
+          //loop through the data array
+          for (var i = 0; i<response.data.length; i++){
+            //create a div for the gif
+            var gifDiv = $("<div>");
+            
+            //grab the rating 
+            var rating = response.data[i].rating
+
+            //create a paragraph tag for the rating
+            var p = $("<p>").text("Rating: " + rating);
+
+            //create a variable for still image
+            var animated=response.data[i].images.fixed_height.url;
+
+            //create a variable for animated images
+            var still=response.data[i].images.fixed_height_still.url;
+
+            //create a variable with an image tag and give still and animated attributes
+            var image =$('<img>');
+            image.attr('src', still);
+            image.attr('data-still', still);
+            image.attr('data-animated', animated);
+            image.attr('data-state', 'still');
+
+            //Append the paragraph tag and image tag to the created div
+            gifDiv.append(p);
+            gifDiv.append(image);
+
+            //Prepend the gifDiv to the #holiday-images HTML div
+            $("#holiday-images").append(gifDiv);
+
+          }
+      })
+    })
+    
+    //create a function for the search form
+    $("#addSearch").on('click', function(){
+      var newSearch = $('input').eq(0).val();
+
+      //push the input into the topicArray
+      topicArray.pushj(newSearch)
+      //call the first function again
+      renderButtons();
+      return false;
+    })
+    </script>
+  </div>
+
+</body>
+</html>
