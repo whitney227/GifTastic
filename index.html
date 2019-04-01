@@ -19,12 +19,12 @@
     <br>
 
     <!-- This form allows users to input their own holiday-->
-    <form id= "search-form">
+    <form id= "holiday-form">
 
       <!--Label for text box-->
       <label>Add you favorite holiday</label>
       <!--Text input box-->
-      <input type="text" id="search-input">
+      <input type="text" id="holidayInput">
       <!--Submit Button-->
       <input id="addSearch" type="submit" value="Click">
 
@@ -45,8 +45,8 @@
       console.log(topicArray);
 
     //Function for creating buttons in the HTML
-    function renderButtons () {
-      $("#button-view").empty()
+    function renderButtons (newSearch) {
+      $("#buttons-view").empty()
   
       // Looping through the array of holidays
       for(var i=0; i<topicArray.length; i++) {
@@ -127,14 +127,19 @@
         }
     });
     
-    //create a function for the search form
-    $("#addSearch").on('click', function(){
-      var newSearch = $('input').eq(0).val();
+    //create a function for the holiday-form
+    $("#addSearch").on('click', function(event){
+      event.preventDefault();
 
+      //make a variable hold the input from the textbox
+      var newSearch = $("#holidayInput").val().trim();
+        console.log(newSearch);
       //push the input into the topicArray
-      topicArray.pushj(newSearch)
-      //call the first function again
+      topicArray.push(newSearch)
+
+      //call the renderButtons function once more
       renderButtons();
+      //prevent the page from reloading
       return false;
     })
     </script>
