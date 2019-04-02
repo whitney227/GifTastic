@@ -1,0 +1,31 @@
+body{
+    background-image: url(christmas-colour.png);
+}
+
+h1{
+    text-align: center;
+    color: red;
+}
+
+.container{
+    
+    font-family: 'Bowlby One SC', cursive;
+    font-weight: bold;
+    margin-top: 3%;
+}
+
+.buttonClass{
+    background-color : white;
+    color: black;
+    border: 3px solid green;
+    margin: 1%;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+#holidayInput{
+    border:3px solid green;
+}
+
+#addSearch{
+    background-color: green;
+    color: white;
+}

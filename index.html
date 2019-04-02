@@ -4,33 +4,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assests/style.css">
+  <link rel="stylesheet" href="assets/reset.css">
+  <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bowlby+One+SC" rel="stylesheet">
+
   <title>Holiday GIFS</title>
 </head>
 
 <body>
 
   <div class="container">
+
     <h1>Holiday Antics</h1>
 
     <!-- Rendered Buttons will get Dumped Here  -->
-    <div id="buttons-view"></div>
+    <div class="d-flex p-2 bd-highlight">
 
-    <br>
+      <div id="buttons-view"></div>
 
-    <!-- This form allows users to input their own holiday-->
-    <form id= "holiday-form">
+      <br>
 
-      <!--Label for text box-->
-      <label>Add you favorite holiday</label>
-      <!--Text input box-->
-      <input type="text" id="holidayInput">
-      <!--Submit Button-->
-      <input id="addSearch" type="submit" value="Click">
+      <!-- This form allows users to input their own holiday-->
+      <form class= "holiday-form">
 
-    </form>
+        <!--Label for text box-->
+        <label><h4>Add you favorite holiday</h4></label>
+        <!--Text input box-->
+        <input type="text" id="holidayInput">
+        <!--Submit Button-->
+        <input id="addSearch" type="submit" value="Click">
+
+      </form>
+    </div>
+  
 
     <!-- GIFS get dumped here-->
     <div id="holiday-images"></div>
@@ -73,7 +80,7 @@
         //image refers to the button's value that was clicked
         var type = $(this).attr('data-type');
 
-        // Constructing a queryURL using the image name
+        // Constructing a queryURL using the button value
         var queryURL = "https://api.giphy.com/v1/gifs/search?q="+type+"&api_key=ZRHkrDBtfCxY4z71tSO8GExnQNik26gc&limit=10&rating=pg";
 
         //Runs the AJAX request with the queryURL
@@ -130,8 +137,7 @@
     });
     
     //create a function for the holiday-form
-    $("#addSearch").on('click', function(event){
-      event.preventDefault();
+    $("#addSearch").on('click', function(){
 
       //make a variable hold the input from the textbox
       var newSearch = $("#holidayInput").val().trim();
